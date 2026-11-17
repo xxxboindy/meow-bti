@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { viteSingleFile } from 'vite-plugin-singlefile'
 
 /**
  * - 默认 `base: './'`：构建出的 `dist/` 可用相对路径部署在任意子目录（如 GitHub Pages `…/github.io/<repo>/`）。
@@ -8,6 +9,7 @@ const base = process.env.VITE_BASE ?? './'
 
 export default defineConfig({
   base,
+  plugins: [viteSingleFile()],
   server: {
     // Default 5173 is often taken by another Vite app; use a project-specific port
     // so the URL stays the same every run (no auto 5174/5175…).

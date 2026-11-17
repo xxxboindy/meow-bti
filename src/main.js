@@ -2,18 +2,16 @@ import { calcDimensionScores, parsePattern, scoresToLevels, determineResult } fr
 import { createQuiz } from './quiz.js'
 import { renderResult } from './result.js'
 
-async function loadJSON(path) {
-  const res = await fetch(path)
-  return res.json()
-}
+import questionsData from '../data/questions.json'
+import dimensionsData from '../data/dimensions.json'
+import typesData from '../data/types.json'
+import configData from '../data/config.json'
 
 async function init() {
-  const [questions, dimensions, types, config] = await Promise.all([
-    loadJSON(new URL('../data/questions.json', import.meta.url).href),
-    loadJSON(new URL('../data/dimensions.json', import.meta.url).href),
-    loadJSON(new URL('../data/types.json', import.meta.url).href),
-    loadJSON(new URL('../data/config.json', import.meta.url).href),
-  ])
+  const questions = questionsData
+  const dimensions = dimensionsData
+  const types = typesData
+  const config = configData
 
   const pages = {
     intro: document.getElementById('page-intro'),
@@ -78,10 +76,9 @@ async function init() {
     return
   }
 
-  document.getElementById('btn-start').addEventListener('click', () => {
-    quiz.start()
-    showPage('quiz')
-  })
+  // 点开链接直接进入答题页，跳过首页
+  quiz.start()
+  showPage('quiz')
 
   document.getElementById('btn-restart').addEventListener('click', () => {
     quiz.start()
