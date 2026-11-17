@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CatBTI（猫BTI）· 测一测你是什么猫</title>
-  <meta name="description" content="猫BTI：测一测你是什么猫。十五维猫格、整活向娱乐测评；与 MBTI 无关，开源云吸猫。" />
+  <title>Meow BTI · 测一测你是什么猫</title>
+  <meta name="description" content="Meow BTI：测一测你是什么猫。十五维猫格、整活向娱乐测评；与 MBTI 无关，开源云吸猫。" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.85em' x='50%25' text-anchor='middle' font-size='72' fill='%23c45c26'%3E%E7%8C%AB%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="./src/style.css" />
 </head>
@@ -13,10 +13,10 @@
     <!-- 首页 -->
     <section id="page-intro" class="page active">
       <div class="card intro-card">
-        <h1 class="intro-title" id="intro-title">CatBTI（猫BTI）<br/>测一测你是什么猫</h1>
+        <h1 class="intro-title" id="intro-title">Meow BTI<br/>测一测你是什么猫</h1>
         <p class="intro-lead" id="intro-lead"></p>
-        <button id="btn-start" class="btn btn-primary">开始测我的 CatBTI</button>
-        <p class="intro-note">CatBTI（猫BTI）仅供娱乐 · 与 MBTI 无关</p>
+        <button id="btn-start" class="btn btn-primary">开始测我的 Meow BTI</button>
+        <p class="intro-note">Meow BTI 仅供娱乐 · 与 MBTI 无关</p>
       </div>
     </section>
 
@@ -37,7 +37,7 @@
     <!-- 结果页 -->
     <section id="page-result" class="page">
       <div class="card result-card" id="result-card">
-        <div class="result-kicker" id="result-kicker">你的 CatBTI 主猫格</div>
+        <div class="result-kicker" id="result-kicker">你的 Meow BTI 主猫格</div>
         <div class="result-portrait">
           <img id="result-avatar" class="result-avatar" alt="结果猫咪插画" />
         </div>
@@ -52,7 +52,7 @@
           <div class="secondary-info" id="secondary-info"></div>
         </div>
 
-        <h3 class="section-title" id="dimensions-section-title">十五维 · 本喵自画像（CatBTI）</h3>
+        <h3 class="section-title" id="dimensions-section-title">十五维 · 本喵自画像（Meow BTI）</h3>
         <canvas id="radar-chart" width="320" height="320"></canvas>
         <div class="dimensions-detail" id="dimensions-detail"></div>
 
@@ -70,22 +70,8 @@
         </div>
 
         <p class="result-credit">
-          Remixed by <a href="https://ktwu01.github.io/" target="_blank" rel="noopener noreferrer">Koutian Wu</a> (微信: ktwu001)
+          Made by xxxboindy
         </p>
-
-        <div class="result-qr">
-          <img class="result-qr-image" src="./img/qr_code_embeded_cat_img.png" alt="CatBTI 二维码" />
-          <p class="result-qr-text">分享给朋友一起测猫格</p>
-        </div>
-
-        <div class="agent-section">
-          <p class="agent-title">想自己 fork 一版？</p>
-          <div class="agent-cmd">
-            <code>git clone https://github.com/ut01/CatBTI.git && cd CatBTI && npm install && npm run dev</code>
-          </div>
-          <button id="btn-agent" class="btn btn-agent">复制一键部署命令</button>
-          <p class="agent-hint">粘贴到本地终端或 AI 编程助手即可运行并自定义题目与猫格</p>
-        </div>
       </div>
     </section>
   </div>

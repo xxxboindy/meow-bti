@@ -18,9 +18,9 @@ export function renderResult(result, userLevels, dimOrder, dimDefs, config) {
     kicker.textContent = ui.resultKickerCatnip || ui.resultKickerDrunk || '猫薄荷彩蛋已触发'
   }
   else if (mode === 'fallback') kicker.textContent = ui.resultKickerFallback || '十五维对不上猫粮 · 已兜底'
-  else kicker.textContent = ui.resultKickerNormal || '你的 CatBTI 主猫格'
+  else kicker.textContent = ui.resultKickerNormal || '你的 Meow BTI 主猫格'
 
-  const matchLabel = ui.matchLabel || 'CatBTI 猫格重合度'
+  const matchLabel = ui.matchLabel || 'Meow BTI 猫格重合度'
   const exactLabel = ui.exactLabel || '十五维精准对齐'
   const secondaryLabel = ui.secondaryLabel || '清醒版次佳原型'
 
@@ -123,16 +123,5 @@ export function renderResult(result, userLevels, dimOrder, dimDefs, config) {
   const btnDownload = document.getElementById('btn-download')
   btnDownload.onclick = () => {
     generateShareImage(primary, userLevels, dimOrder, dimDefs, mode, config)
-  }
-
-  // 复制 AI Agent 命令
-  const btnAgent = document.getElementById('btn-agent')
-  btnAgent.onclick = () => {
-    const cmd =
-      'git clone https://github.com/ut01/CatBTI.git && cd CatBTI && npm install && npm run dev'
-    navigator.clipboard.writeText(cmd).then(() => {
-      btnAgent.textContent = '已复制!'
-      setTimeout(() => { btnAgent.textContent = '复制一键部署命令' }, 2000)
-    })
   }
 }

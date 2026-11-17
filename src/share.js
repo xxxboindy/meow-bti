@@ -36,11 +36,7 @@ export async function generateShareImage(primary, userLevels, dimOrder, dimDefs,
 
   // 预加载图片
   const avatarSrc = getCatAvatar(primary)
-  const qrSrc = new URL('../img/qr_code_embeded_cat_img.png', import.meta.url).href
-  const [avatarImg, qrImg] = await Promise.all([
-    loadImage(avatarSrc).catch(() => null),
-    loadImage(qrSrc).catch(() => null),
-  ])
+  const avatarImg = await loadImage(avatarSrc).catch(() => null)
 
   // 背景
   ctx.fillStyle = '#faf6f0'
@@ -61,10 +57,10 @@ export async function generateShareImage(primary, userLevels, dimOrder, dimDefs,
   ctx.fillStyle = '#7a6560'
   const kickerText =
     mode === 'catnip' || mode === 'drunk'
-      ? ui.resultKickerCatnip || ui.resultKickerDrunk || '猫薄荷彩蛋 · CatBTI 隐藏款'
+      ? ui.resultKickerCatnip || ui.resultKickerDrunk || '猫薄荷彩蛋 · Meow BTI 隐藏款'
       : mode === 'fallback'
-        ? ui.resultKickerFallback || '十五维对不上猫粮 · CatBTI 兜底款'
-        : ui.resultKickerNormal || '你的 CatBTI 主猫格'
+        ? ui.resultKickerFallback || '十五维对不上猫粮 · Meow BTI 兜底款'
+        : ui.resultKickerNormal || '你的 Meow BTI 主猫格'
   ctx.fillText(kickerText, W / 2, y)
   y += 32
 
@@ -104,7 +100,7 @@ export async function generateShareImage(primary, userLevels, dimOrder, dimDefs,
   y += 36
 
   // 匹配度徽章
-  const matchLabel = ui.matchLabel || 'CatBTI 猫格重合度'
+  const matchLabel = ui.matchLabel || 'Meow BTI 猫格重合度'
   const exactLabel = ui.exactLabel || '十五维精准对齐'
   const badgeText =
     `${matchLabel} ${primary.similarity}%` + (primary.exact != null ? ` · ${exactLabel} ${primary.exact}/15` : '')
@@ -180,52 +176,11 @@ export async function generateShareImage(primary, userLevels, dimOrder, dimDefs,
 
   y += 24
 
-  // 二维码区域
-  if (qrImg) {
-    const qrBlockW = 260
-    const qrBlockH = 300
-    const qrBlockX = (W - qrBlockW) / 2
-
-    // QR block 背景
-    const grad = ctx.createLinearGradient(qrBlockX, y, qrBlockX, y + qrBlockH)
-    grad.addColorStop(0, '#fffaf5')
-    grad.addColorStop(1, '#fde8d4')
-    roundRect(ctx, qrBlockX, y, qrBlockW, qrBlockH, 18)
-    ctx.fillStyle = grad
-    ctx.fill()
-    ctx.strokeStyle = '#ead9cc'
-    ctx.lineWidth = 1
-    ctx.stroke()
-
-    // QR 图片
-    const qrImgSize = 180
-    const qrImgX = (W - qrImgSize) / 2
-    const qrImgY = y + 20
-    ctx.save()
-    roundRect(ctx, qrImgX, qrImgY, qrImgSize, qrImgSize, 18)
-    ctx.clip()
-    ctx.fillStyle = '#ffffff'
-    ctx.fillRect(qrImgX, qrImgY, qrImgSize, qrImgSize)
-    ctx.drawImage(qrImg, qrImgX, qrImgY, qrImgSize, qrImgSize)
-    ctx.restore()
-
-    // QR 文字
-    ctx.textAlign = 'center'
-    ctx.font = '400 16px system-ui, "PingFang SC", "Microsoft YaHei", sans-serif'
-    ctx.fillStyle = '#7a6560'
-    ctx.fillText('扫码测你的猫格', W / 2, qrImgY + qrImgSize + 28)
-    ctx.font = '400 14px system-ui, "PingFang SC", "Microsoft YaHei", sans-serif'
-    ctx.fillStyle = '#b5a399'
-    ctx.fillText('分享给朋友一起测猫格', W / 2, qrImgY + qrImgSize + 50)
-
-    y += qrBlockH + 20
-  }
-
   // 底部水印
   ctx.textAlign = 'center'
   ctx.font = '400 18px system-ui, "PingFang SC", "Microsoft YaHei", sans-serif'
   ctx.fillStyle = '#b5a399'
-  ctx.fillText(ui.shareWatermark || 'CatBTI 猫格测试 · 仅供娱乐', W / 2, y + 10)
+  ctx.fillText(ui.shareWatermark || 'Meow BTI 猫格测试 · 仅供娱乐', W / 2, y + 10)
 
   // 裁剪画布到实际内容高度
   const finalH = y + 50
@@ -237,7 +192,7 @@ export async function generateShareImage(primary, userLevels, dimOrder, dimDefs,
 
   // 下载
   const link = document.createElement('a')
-  link.download = `CatBTI-${primary.code}.png`
+  link.download = `MeowBTI-${primary.code}.png`
   link.href = finalCanvas.toDataURL('image/png')
   link.click()
 }
