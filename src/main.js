@@ -76,9 +76,11 @@ async function init() {
     return
   }
 
-  // 点开链接直接进入答题页，跳过首页
-  quiz.start()
-  showPage('quiz')
+  // 首页点「开始测我的 Meow BTI」进入答题页
+  document.getElementById('btn-start').addEventListener('click', () => {
+    quiz.start()
+    showPage('quiz')
+  })
 
   document.getElementById('btn-restart').addEventListener('click', () => {
     quiz.start()
