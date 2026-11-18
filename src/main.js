@@ -7,7 +7,71 @@ import dimensionsData from '../data/dimensions.json'
 import typesData from '../data/types.json'
 import configData from '../data/config.json'
 
+// 密钥门：页面只存密钥的 SHA-256 哈希，不存明文
+const GATE_HASH = '3ffd8921dec5677fd53682577ff5ee7ab026ccaf2abd5ed7b0a5af638d596322'
+const GATE_STORAGE = 'meowbti_unlocked'
+
+async function sha256Hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str))
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+}
+
+async function initGate() {
+  const gate = document.getElementById('gate')
+  const input = document.getElementById('gate-input')
+  const btn = document.getElementById('gate-btn')
+  const err = document.getElementById('gate-error')
+
+  function unlock() {
+    gate.classList.add('hidden')
+    try {
+      localStorage.setItem(GATE_STORAGE, '1')
+    } catch (e) {}
+  }
+
+  // 支持 ?key=XXXX 自动解锁（可选，卖家可把密钥拼进链接）
+  const urlKey = new URLSearchParams(window.location.search).get('key')
+  if (urlKey) {
+    const h = await sha256Hex(urlKey.trim().toUpperCase())
+    if (h === GATE_HASH) {
+      unlock()
+      return
+    }
+  }
+
+  // 本浏览器已解锁过，直接进入
+  try {
+    if (localStorage.getItem(GATE_STORAGE) === '1') {
+      unlock()
+      return
+    }
+  } catch (e) {}
+
+  async function check() {
+    const val = input.value.trim().toUpperCase()
+    if (!val) return
+    const h = await sha256Hex(val)
+    if (h === GATE_HASH) {
+      unlock()
+    } else {
+      err.style.display = 'block'
+      input.value = ''
+      input.focus()
+    }
+  }
+
+  btn.addEventListener('click', check)
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') check()
+  })
+  input.focus()
+}
+
 async function init() {
+  await initGate()
+
   const questions = questionsData
   const dimensions = dimensionsData
   const types = typesData
